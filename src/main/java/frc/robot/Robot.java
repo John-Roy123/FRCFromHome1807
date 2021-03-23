@@ -271,21 +271,124 @@ double limeTarget;
 
   
   @Override
-  public void autonomousInit() {
-    
-//super.autonomousInit();
+  public void autonomousPeriodic() {
+    double s_mleft = Math.abs(m_talon1.getSelectedSensorPosition() / 2048);
+    double s_mright = Math.abs(m_talon4.getSelectedSensorPosition()/2048);
+    double lwheelSpin = gRCombin * s_mleft; 
+    double rwheelSpin = gRCombin * s_mright; //how many inches per motor spin 
+    int state = 0;
+    int phase = 1;
 
+    System.out.println(rwheelSpin);
+
+    int move5ft = 45;
+   
+
+
+    
+    
+   
+
+    if(s_ultra1.getRangeInches() < 5 && !(s_ultra2.getRangeInches() < 5 )){
+      m_indexer.set(.4);
+    }
+    else{
+      m_indexer.set(0);
+    }
+
+    ultraAuto = s_ultra1.getRangeInches();
+    SmartDashboard.putNumber("ultra1", s_ultra1.getRangeInches());
+    SmartDashboard.putBoolean("Red Auto", AutoRed);
+
+    if (rwheelSpin < 50 ) {
+      left.set(-0.5);
+      right.set(-0.5);
+      m_collector.set(1);
+      
+      if(ultraAuto > 9){
+        AutoRed = true;
+      } //else {AutoRed = false;}
+
+
+    }
+
+
+    
+      /*if(ultraAuto > 9){
+        AutoRed = true;
+      }
+    if(x>60 & x<105){
+
+    }
+    }
+    
+    
+    /*else if(60 < x){
+      
+
+    }
+    else{
+      left.set(0);
+      right.set(0);
+    } */
+
+if (rwheelSpin > 50 & AutoRed == true) {
+  if(rwheelSpin < 70){
+    right.set(-0.3);
+    left.set(0.3);
+    m_collector.set(1);
+  }
+  else if(rwheelSpin > 71 & rwheelSpin < 151){
+    left.set(-0.5);
+      right.set(-0.5);
+      m_collector.set(1);
+    if(rwheelSpin > 146){
+      rwheelSpin = 1000;
+    }
+  } else if(rwheelSpin > 978){
+    right.set(0.3);
+    left.set(-0.3);
+    m_collector.set(1);
+    if(rwheelSpin > 978){
+      rwheelSpin = 2000;
+    }
+  }else if(rwheelSpin > 1999 & rwheelSpin < 2065){
+    left.set(-0.5);
+    right.set(-0.5);
+    m_collector.set(1);
+  } else if (x > 242 & x < 256) {
+    right.set(-0.5);
+    left.set(0.5);
+    m_collector.set(1);
+  } else if ( x > 256 & x < 301) {
+    right.set(-0.5);
+    left.set(-0.5);
+    m_collector.set(1);
+    
+  }
+  else{
+    right.set(0);
+    left.set(0);
   }
 
-  /**
-   * This function is called periodically during autonomous.
-   */
- 
+} else if (x > 60 && AutoRed == false) {
+
+}
+
+
+
+
+
+
+
+
   
-  @Override
-  public void autonomousPeriodic() {
+        
         
         }
+
+      
+       
 
       
        
