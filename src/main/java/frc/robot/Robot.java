@@ -269,6 +269,23 @@ double limeTarget;
     
   }
 
+    @Override
+  public void autonomousInit() {
+    s_ultra1.setAutomaticMode(true);
+    s_ultra2.setAutomaticMode(true);
+    x = 0;
+    m_talon1.setSelectedSensorPosition(0);
+    m_talon4.setSelectedSensorPosition(0);
+NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
+ m_talon1.setSelectedSensorPosition(0);
+ m_talon2.setSelectedSensorPosition(0);
+
+ a_collector.set(Value.kReverse);
+ AutoRed = true;
+//super.autonomousInit();
+
+  }
   
   @Override
   public void autonomousPeriodic() {
